@@ -20,6 +20,7 @@ public class OGRow {
         this.result=result;
         this.time=time;
     }
+    public OGRow(){}
     public String timeFormat(){
         Date date = null;
         try {

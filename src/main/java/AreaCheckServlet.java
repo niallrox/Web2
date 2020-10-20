@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 @WebServlet(name = "AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,7 +40,6 @@ public class AreaCheckServlet extends HttpServlet {
             req.setAttribute("result", ogRow);
             ((List<Point>) getServletContext().getAttribute("points")).add(points);
             ((List<OGRow>) getServletContext().getAttribute("results")).add(ogRow);
-            System.out.println(ogRow);
             ((OGRow) getServletContext().getAttribute("resultNow")).setRow(ogRow);
             getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
         }

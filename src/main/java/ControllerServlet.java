@@ -20,7 +20,7 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        OGRow resultNow = new OGRow(0,0,0,"0", LocalTime.now());
+        OGRow resultNow = new OGRow();
         if (req.getParameter("com").equals("oldG")) {
             getServletContext().setAttribute("points", point);
             getServletContext().getRequestDispatcher("/graph.jsp").forward(req, resp);
