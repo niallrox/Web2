@@ -1,19 +1,16 @@
+import Foundation.OGRow;
+import Foundation.Point;
+
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.function.DoubleToIntFunction;
+import java.util.List;
 
 @WebServlet(name = "AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
@@ -25,25 +22,25 @@ public class AreaCheckServlet extends HttpServlet {
         String yP = String.valueOf(req.getParameter("yP"));
         String res = result(x, y, r);
         LocalTime time = LocalTime.now();
-        String timeString = time.toString().substring(0, 8);
-        String[] answer = null;
-        String[] points = null;
+        OGRow ogRow = null;
+        Point points = null;
         try {
-            if(req.getParameter("com").equals("send")) {
+            if (req.getParameter("com").equals("send")) {
                 if (checkData(x, y, r)) {
-                    answer = new String[]{String.valueOf(x), String.valueOf(y), String.valueOf(r), res, timeString};
+                    ogRow = new OGRow(x, y, r, res, time);
                 }
             } else {
-                if (r != 0){
-                    points = new String[]{xP, yP};
-                    answer = new String[]{String.valueOf(x), String.valueOf(y), String.valueOf(r), res, timeString};
+                if (r != 0) {
+                    points = new Point(xP,yP);
+                    ogRow = new OGRow(x, y, r, res, time);
                 }
             }
         } finally {
-            req.setAttribute("result", answer);
-            ((ArrayList<String[]>) getServletContext().getAttribute("points")).add(points);
-            ((ArrayList<String[]>) getServletContext().getAttribute("results")).add(answer);
-            ((ArrayList<String[]>) getServletContext().getAttribute("results1")).add(answer);
+            req.setAttribute("result", ogRow);
+            ((List<Point>) getServletContext().getAttribute("points")).add(points);
+            ((List<OGRow>) getServletContext().getAttribute("results")).add(ogRow);
+            System.out.println(ogRow);
+            ((OGRow) getServletContext().getAttribute("resultNow")).setRow(ogRow);
             getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
         }
     }

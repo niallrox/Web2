@@ -9,5 +9,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="JS/graph.js"></script>
 <c:forEach items="${points}" var="point">
-    <script>setPointer(${point[0]}, ${point[1]})</script>
+    <script>setPointer(${point.getX()}, ${point.getY()})</script>
 </c:forEach>
