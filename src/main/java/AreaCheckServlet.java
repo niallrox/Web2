@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
 @WebServlet(name = "AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
+    private static final String result = "result";
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         double x = Double.parseDouble(req.getParameter("X"));
         double y = Double.parseDouble(req.getParameter("Y"));
@@ -37,11 +37,11 @@ public class AreaCheckServlet extends HttpServlet {
                 }
             }
         } finally {
-            req.setAttribute("result", ogRow);
+            req.setAttribute(result, ogRow);
             ((List<Point>) getServletContext().getAttribute("points")).add(points);
-            ((List<OGRow>) getServletContext().getAttribute("results")).add(ogRow);
-            ((OGRow) getServletContext().getAttribute("resultNow")).setRow(ogRow);
-            getServletContext().getRequestDispatcher("/result.jsp").forward(req, resp);
+            ((List<OGRow>) getServletContext().getAttribute(result+"s")).add(ogRow);
+            ((OGRow) getServletContext().getAttribute(result+"Now")).setRow(ogRow);
+            getServletContext().getRequestDispatcher("/"+result+".jsp").forward(req, resp);
         }
     }
 
