@@ -14,7 +14,7 @@ import java.util.List;
 
 @WebServlet(name = "AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
-    private static final String result = "result";
+    public static final String result = "result";
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         double x = Double.parseDouble(req.getParameter("X"));
         double y = Double.parseDouble(req.getParameter("Y"));
